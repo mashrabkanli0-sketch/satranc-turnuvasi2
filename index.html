@@ -1,0 +1,667 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>2026 Okul Satranç Turnuvası | Ertuğrul Gazi Anadolu Lisesi</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0b0f14;
+      --card: #141b24;
+      --card2: #1a2332;
+      --accent: #c9a227;
+      --accent2: #e8d48b;
+      --text: #e8e6e3;
+      --muted: #8b95a5;
+      --border: #2a3544;
+      --success: #22c55e;
+      --danger: #ef4444;
+      --input-bg: #0f1419;
+    }
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body {
+      font-family: 'Inter', system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+    body::before {
+      content:"";
+      position:fixed; inset:0;
+      background-image:
+        linear-gradient(45deg, #111820 25%, transparent 25%),
+        linear-gradient(-45deg, #111820 25%, transparent 25%),
+        linear-gradient(45deg, transparent 75%, #111820 75%),
+        linear-gradient(-45deg, transparent 75%, #111820 75%);
+      background-size: 36px 36px;
+      background-position: 0 0, 0 18px, 18px -18px, -18px 0;
+      opacity: 0.4;
+      z-index: -1;
+      pointer-events: none;
+    }
+    .container { max-width: 960px; margin: 0 auto; padding: 0 16px 80px; }
+
+    /* Header */
+    header { text-align:center; padding: 50px 16px 30px; }
+    .school { font-size: 0.95rem; color: var(--accent2); letter-spacing: 1px; margin-bottom: 8px; font-weight: 600; }
+    .chess-icon { font-size: 2.8rem; display:block; margin-bottom: 10px; filter: drop-shadow(0 0 10px rgba(201,162,39,0.35)); }
+    h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.7rem, 5vw, 2.5rem);
+      color: var(--accent);
+      margin-bottom: 6px;
+    }
+    .subtitle { color: var(--muted); font-size: 1rem; }
+    .badge {
+      display:inline-block; margin-top:14px;
+      background: rgba(201,162,39,0.12);
+      border: 1px solid var(--accent);
+      color: var(--accent2);
+      font-size: 0.8rem; font-weight:600;
+      padding: 5px 14px; border-radius: 20px;
+    }
+
+    /* Info cards */
+    .info-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 12px;
+      margin-bottom: 28px;
+    }
+    .info-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px 12px;
+      text-align: center;
+    }
+    .info-card .label { font-size: 0.7rem; text-transform:uppercase; letter-spacing:1px; color:var(--muted); margin-bottom:4px; }
+    .info-card .value { font-size: 1.05rem; font-weight:600; color:var(--accent2); }
+
+    /* Sections */
+    section {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 22px 18px;
+      margin-bottom: 20px;
+    }
+    section h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.3rem;
+      color: var(--accent);
+      margin-bottom: 16px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid var(--border);
+      display: flex; align-items: center; gap: 8px;
+    }
+
+    /* Forms */
+    .form-group { margin-bottom: 14px; }
+    label { display:block; font-size:0.8rem; color:var(--muted); margin-bottom:5px; text-transform:uppercase; letter-spacing:0.5px; }
+    input, select {
+      width:100%;
+      padding: 11px 14px;
+      background: var(--input-bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      color: var(--text);
+      font-size: 1rem;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    input:focus, select:focus { border-color: var(--accent); }
+    .btn {
+      display:inline-block;
+      background: var(--accent);
+      color: #0b0f14;
+      border: none;
+      padding: 11px 22px;
+      border-radius: 8px;
+      font-weight: 700;
+      font-size: 0.95rem;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .btn:hover { background: var(--accent2); }
+    .btn-outline {
+      background: transparent;
+      border: 1px solid var(--accent);
+      color: var(--accent);
+    }
+    .btn-outline:hover { background: rgba(201,162,39,0.1); }
+    .btn-sm { padding: 6px 12px; font-size: 0.85rem; }
+    .btn-danger { background: var(--danger); color:white; }
+    .btn-success { background: var(--success); color:white; }
+
+    /* Tables */
+    .table-wrap { overflow-x: auto; }
+    table { width:100%; border-collapse: collapse; font-size: 0.92rem; }
+    th, td { padding: 10px 8px; text-align:left; border-bottom: 1px solid var(--border); }
+    th { color: var(--accent); font-size: 0.8rem; text-transform:uppercase; letter-spacing:0.5px; background: rgba(201,162,39,0.08); }
+    tr:hover td { background: rgba(255,255,255,0.02); }
+    .edit-input {
+      width:100%;
+      padding: 6px 8px;
+      background: var(--input-bg);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      color: var(--text);
+      font-size: 0.9rem;
+    }
+    .edit-input:focus { border-color: var(--accent); outline:none; }
+
+    /* Password box */
+    .password-box {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      flex-wrap: wrap;
+      margin-bottom: 16px;
+    }
+    .password-box input { max-width: 220px; }
+
+    /* Matches */
+    .match-card {
+      background: var(--card2);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 14px;
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .match-vs { color: var(--accent); font-weight:700; font-size: 0.9rem; }
+
+    /* Prizes */
+    .prizes {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 12px;
+    }
+    .prize-card {
+      text-align: center;
+      padding: 16px 10px;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,0.02);
+    }
+    .prize-card.first { border-color:#fbbf24; background:rgba(251,191,36,0.08); }
+    .prize-card.second { border-color:#d1d5db; }
+    .prize-card.third { border-color:#cd7f32; background:rgba(205,127,50,0.08); }
+    .prize-card .place { font-size:0.75rem; color:var(--muted); text-transform:uppercase; margin-bottom:4px; }
+    .prize-card .amount { font-size:1.3rem; font-weight:700; color:var(--accent2); }
+    .prize-card.first .amount { color:#fbbf24; }
+
+    /* Organizers / Refs */
+    .people { display:flex; flex-wrap:wrap; gap:8px; }
+    .person {
+      background: rgba(201,162,39,0.1);
+      border: 1px solid var(--border);
+      padding: 7px 12px;
+      border-radius: 8px;
+      font-size: 0.9rem;
+    }
+
+    .empty { text-align:center; color:var(--muted); padding: 24px 10px; }
+    .msg { padding:10px 14px; border-radius:8px; margin-bottom:12px; font-size:0.9rem; }
+    .msg.ok { background:rgba(34,197,94,0.15); color:#4ade80; }
+    .msg.err { background:rgba(239,68,68,0.15); color:#f87171; }
+
+    footer {
+      text-align:center;
+      padding: 30px 16px;
+      color: var(--muted);
+      font-size: 0.85rem;
+    }
+    footer .line { width:50px; height:2px; background:var(--accent); margin:0 auto 14px; opacity:0.5; }
+
+    @media (max-width:600px) {
+      section { padding: 18px 14px; }
+      th, td { padding: 8px 6px; font-size:0.85rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div class="school">ERTUĞRUL GAZİ ANADOLU LİSESİ</div>
+      <span class="chess-icon">♟️</span>
+      <h1>2026 Okul Satranç Turnuvası</h1>
+      <p class="subtitle">Zihin sadece bir oyun değil, bir savaştır!</p>
+      <div class="badge">Yaklaşan Etkinlik</div>
+    </header>
+
+    <!-- Bilgi Kartları -->
+    <div class="info-grid">
+      <div class="info-card">
+        <div class="label">Tarih</div>
+        <div class="value">21 Ekim 2026</div>
+      </div>
+      <div class="info-card">
+        <div class="label">Yer</div>
+        <div class="value">EGAL – En Üst Kat<br>Satranç Sınıfı</div>
+      </div>
+      <div class="info-card">
+        <div class="label">Süre</div>
+        <div class="value">10 dakika</div>
+      </div>
+      <div class="info-card">
+        <div class="label">Katılımcı</div>
+        <div class="value" id="katilimci-sayisi">0</div>
+      </div>
+    </div>
+
+    <!-- Turnuva Hakkında -->
+    <section>
+      <h2>📋 Turnuva Hakkında</h2>
+      <p>Okulumuzda düzenlenen bu satranç turnuvası, öğrenciler arasında eğlenme ve rekabet etmek amaçlı güzel bir etkinlik olarak planlanmıştır.</p>
+      <p style="margin-top:12px;"><strong>Organizatörler:</strong></p>
+      <div class="people" style="margin-top:8px;">
+        <div class="person">Mashrab Ganijanov</div>
+        <div class="person">Eyüp Emin Kara Toprak</div>
+        <div class="person">Gürol Eyüpoğlu</div>
+      </div>
+    </section>
+
+    <!-- Sistem -->
+    <section>
+      <h2>⚙️ Turnuva Sistemi</h2>
+      <ul style="padding-left:18px; color:var(--text);">
+        <li style="margin-bottom:6px;">Puan sistemi ile lig usulü oynanacaktır.</li>
+        <li style="margin-bottom:6px;">Herkes kendine en yakın puanlı kişi ile eşleşir.</li>
+        <li style="margin-bottom:6px;">En çok puan toplayan 3 kişi final maçlarını oynar.</li>
+        <li style="margin-bottom:6px;">Her parti <strong>10 dakika</strong> sürelidir.</li>
+        <li>Maçlar <strong>öğle teneffüsünde</strong> yapılacaktır.</li>
+      </ul>
+    </section>
+
+    <!-- BAŞVURU FORMU -->
+    <section id="basvuru">
+      <h2>✍️ Başvuru</h2>
+      <p style="color:var(--muted); margin-bottom:16px; font-size:0.95rem;">Turnuvaya katılmak için aşağıdaki formu doldur.</p>
+      <div id="basvuru-msg"></div>
+      <form id="basvuru-form">
+        <div class="form-group">
+          <label>İsim</label>
+          <input type="text" id="firstName" required placeholder="Adınız" maxlength="40">
+        </div>
+        <div class="form-group">
+          <label>Soyisim</label>
+          <input type="text" id="lastName" required placeholder="Soyadınız" maxlength="40">
+        </div>
+        <div class="form-group">
+          <label>Okul Numarası</label>
+          <input type="text" id="schoolNumber" required placeholder="Okul numaranız" maxlength="20">
+        </div>
+        <div class="form-group">
+          <label>Sınıf</label>
+          <input type="text" id="className" required placeholder="Örn. 9-A" maxlength="10">
+        </div>
+        <button type="submit" class="btn">Başvur</button>
+      </form>
+    </section>
+
+    <!-- YARIŞMACILAR -->
+    <section id="yarismacilar">
+      <h2>👥 Yarışmacılar</h2>
+      
+      <div class="password-box">
+        <input type="password" id="admin-password" placeholder="Şifre girin">
+        <button class="btn btn-sm" onclick="unlockAdmin()">Göster / Düzenle</button>
+        <button class="btn btn-sm btn-outline" id="lock-btn" style="display:none;" onclick="lockAdmin()">Kilitle</button>
+      </div>
+      <div id="admin-msg"></div>
+      <div id="yarismacilar-listesi" class="empty">Şifre girerek listeyi görüntüleyebilirsiniz.</div>
+    </section>
+
+    <!-- GÜNÜN MAÇLARI -->
+    <section id="maclar">
+      <h2>⚔️ Günün Maçları</h2>
+      <div class="password-box">
+        <input type="password" id="mac-password" placeholder="Düzenlemek için şifre">
+        <button class="btn btn-sm" onclick="unlockMatches()">Düzenle</button>
+      </div>
+      <div id="maclar-listesi"></div>
+    </section>
+
+    <!-- HAKEMLER -->
+    <section>
+      <h2>🧑‍⚖️ Hakemler</h2>
+      <div class="people">
+        <div class="person">Mashrab Ganijanov</div>
+        <div class="person">Eyüp Emin Karatoprak</div>
+        <div class="person">Çağatay Çıvgın</div>
+        <div class="person">Ayaz Eymen</div>
+        <div class="person">Barış Karakütük</div>
+      </div>
+    </section>
+
+    <!-- ÖDÜLLER -->
+    <section>
+      <h2>🎁 Ödüller</h2>
+      <div class="prizes">
+        <div class="prize-card first">
+          <div class="place">1. Lik</div>
+          <div class="amount">1.500 ₺</div>
+        </div>
+        <div class="prize-card second">
+          <div class="place">2. Lik</div>
+          <div class="amount">1.250 ₺</div>
+        </div>
+        <div class="prize-card third">
+          <div class="place">3. Lük</div>
+          <div class="amount">1.000 ₺</div>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      <div class="line"></div>
+      <p>Bu site yalnızca 2026 Okul Satranç Turnuvası bilgileri için hazırlanmıştır.</p>
+      <p style="margin-top:4px;">Başka hiçbir işlevi yoktur.</p>
+    </footer>
+  </div>
+
+<script>
+  // ========== AYARLAR ==========
+  const ADMIN_PASSWORD = "satranc2026";   // Şifreyi buradan değiştir
+  let isAdmin = false;
+  let isMatchAdmin = false;
+
+  // ========== VERİ ==========
+  function getPlayers() {
+    try {
+      return JSON.parse(localStorage.getItem("satranc_players") || "[]");
+    } catch { return []; }
+  }
+  function savePlayers(list) {
+    localStorage.setItem("satranc_players", JSON.stringify(list));
+    updateCount();
+  }
+  function getMatches() {
+    try {
+      return JSON.parse(localStorage.getItem("satranc_matches") || "[]");
+    } catch { return []; }
+  }
+  function saveMatches(list) {
+    localStorage.setItem("satranc_matches", JSON.stringify(list));
+  }
+
+  function updateCount() {
+    document.getElementById("katilimci-sayisi").textContent = getPlayers().length;
+  }
+
+  // ========== BAŞVURU ==========
+  document.getElementById("basvuru-form").addEventListener("submit", function(e) {
+    e.preventDefault();
+    const firstName = document.getElementById("firstName").value.trim();
+    const lastName = document.getElementById("lastName").value.trim();
+    const schoolNumber = document.getElementById("schoolNumber").value.trim();
+    const className = document.getElementById("className").value.trim();
+
+    if (!firstName || !lastName || !schoolNumber || !className) {
+      showMsg("basvuru-msg", "Tüm alanları doldurun.", "err");
+      return;
+    }
+
+    const players = getPlayers();
+    // Aynı okul numarası kontrolü
+    if (players.some(p => p.schoolNumber === schoolNumber)) {
+      showMsg("basvuru-msg", "Bu okul numarası ile zaten başvuru yapılmış.", "err");
+      return;
+    }
+
+    players.push({
+      id: Date.now().toString(36) + Math.random().toString(36).slice(2, 7),
+      firstName,
+      lastName,
+      name: firstName + " " + lastName,
+      schoolNumber,
+      class: className,
+      points: 0,
+      average: 0,
+      createdAt: new Date().toISOString()
+    });
+    savePlayers(players);
+
+    showMsg("basvuru-msg", "Başvurunuz alındı! Teşekkürler.", "ok");
+    this.reset();
+    if (isAdmin) renderPlayers(true);
+  });
+
+  function showMsg(id, text, type) {
+    const el = document.getElementById(id);
+    el.innerHTML = `<div class="msg ${type}">${text}</div>`;
+    setTimeout(() => el.innerHTML = "", 4000);
+  }
+
+  // ========== YARIŞMACILAR ==========
+  function unlockAdmin() {
+    const pw = document.getElementById("admin-password").value;
+    if (pw === ADMIN_PASSWORD) {
+      isAdmin = true;
+      document.getElementById("lock-btn").style.display = "inline-block";
+      document.getElementById("admin-msg").innerHTML = "";
+      renderPlayers(true);
+    } else {
+      showMsg("admin-msg", "Şifre yanlış!", "err");
+      isAdmin = false;
+      renderPlayers(false);
+    }
+  }
+
+  function lockAdmin() {
+    isAdmin = false;
+    document.getElementById("admin-password").value = "";
+    document.getElementById("lock-btn").style.display = "none";
+    renderPlayers(false);
+  }
+
+  function renderPlayers(canEdit) {
+    const list = getPlayers();
+    const container = document.getElementById("yarismacilar-listesi");
+
+    if (list.length === 0) {
+      container.innerHTML = `<div class="empty">Henüz yarışmacı yok.</div>`;
+      return;
+    }
+
+    // Sıralama: puana göre
+    list.sort((a, b) => (b.points || 0) - (a.points || 0) || (b.average || 0) - (a.average || 0));
+
+    let html = `
+      <p style="margin-bottom:12px;color:var(--muted);">Toplam <strong>${list.length}</strong> yarışmacı
+      ${canEdit ? ' <span style="color:var(--success);">(Düzenleme açık)</span>' : ''}</p>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>İsim Soyisim</th>
+              <th>Okul No</th>
+              <th>Sınıf</th>
+              <th>Puan</th>
+              <th>Averaj</th>
+              ${canEdit ? "<th>İşlem</th>" : ""}
+            </tr>
+          </thead>
+          <tbody>
+    `;
+
+    list.forEach((p, i) => {
+      if (canEdit) {
+        html += `
+          <tr data-id="${p.id}">
+            <td>${i + 1}</td>
+            <td>
+              <input class="edit-input" data-field="firstName" value="${esc(p.firstName || '')}" placeholder="İsim" style="width:45%;margin-right:4px;">
+              <input class="edit-input" data-field="lastName" value="${esc(p.lastName || '')}" placeholder="Soyisim" style="width:45%;">
+            </td>
+            <td><input class="edit-input" data-field="schoolNumber" value="${esc(p.schoolNumber || '')}"></td>
+            <td><input class="edit-input" data-field="class" value="${esc(p.class || '')}" style="width:80px;"></td>
+            <td><input class="edit-input" data-field="points" type="number" value="${p.points || 0}" style="width:70px;"></td>
+            <td><input class="edit-input" data-field="average" type="number" value="${p.average || 0}" style="width:70px;"></td>
+            <td style="white-space:nowrap;">
+              <button class="btn btn-sm btn-success" onclick="savePlayer('${p.id}', this)">Kaydet</button>
+              <button class="btn btn-sm btn-danger" onclick="deletePlayer('${p.id}')">Sil</button>
+            </td>
+          </tr>
+        `;
+      } else {
+        html += `
+          <tr>
+            <td>${i + 1}</td>
+            <td>${esc(p.name || (p.firstName + ' ' + p.lastName))}</td>
+            <td>${esc(p.schoolNumber)}</td>
+            <td>${esc(p.class)}</td>
+            <td>${p.points || 0}</td>
+            <td>${p.average || 0}</td>
+          </tr>
+        `;
+      }
+    });
+
+    html += `</tbody></table></div>`;
+    container.innerHTML = html;
+  }
+
+  function savePlayer(id, btn) {
+    const row = btn.closest("tr");
+    const inputs = row.querySelectorAll(".edit-input");
+    const players = getPlayers();
+    const idx = players.findIndex(p => p.id === id);
+    if (idx === -1) return;
+
+    const firstName = inputs[0].value.trim();
+    const lastName = inputs[1].value.trim();
+    players[idx].firstName = firstName;
+    players[idx].lastName = lastName;
+    players[idx].name = firstName + " " + lastName;
+    players[idx].schoolNumber = inputs[2].value.trim();
+    players[idx].class = inputs[3].value.trim();
+    players[idx].points = Number(inputs[4].value) || 0;
+    players[idx].average = Number(inputs[5].value) || 0;
+
+    savePlayers(players);
+    btn.textContent = "✓";
+    btn.style.background = "#22c55e";
+    setTimeout(() => {
+      btn.textContent = "Kaydet";
+      btn.style.background = "";
+      renderPlayers(true);
+    }, 1000);
+  }
+
+  function deletePlayer(id) {
+    if (!confirm("Bu yarışmacıyı silmek istediğine emin misin?")) return;
+    const players = getPlayers().filter(p => p.id !== id);
+    savePlayers(players);
+    renderPlayers(true);
+  }
+
+  // ========== MAÇLAR ==========
+  function unlockMatches() {
+    const pw = document.getElementById("mac-password").value;
+    if (pw === ADMIN_PASSWORD) {
+      isMatchAdmin = true;
+      renderMatches(true);
+    } else {
+      alert("Şifre yanlış!");
+      isMatchAdmin = false;
+      renderMatches(false);
+    }
+  }
+
+  function renderMatches(canEdit) {
+    let matches = getMatches();
+    const container = document.getElementById("maclar-listesi");
+
+    // En az 4 boş maç göster
+    while (matches.length < 4) {
+      matches.push({ id: "m" + matches.length, player1: "", player2: "", result: "" });
+    }
+
+    let html = "";
+    matches.forEach((m, i) => {
+      if (canEdit) {
+        html += `
+          <div class="match-card">
+            <div style="flex:1;">
+              <div style="font-size:0.75rem;color:var(--muted);margin-bottom:4px;">${i + 1}. MAÇ</div>
+              <input class="edit-input" data-mid="${m.id}" data-side="player1" value="${esc(m.player1)}" placeholder="Oyuncu 1" style="margin-bottom:6px;">
+              <input class="edit-input" data-mid="${m.id}" data-side="player2" value="${esc(m.player2)}" placeholder="Oyuncu 2">
+            </div>
+            <div class="match-vs">VS</div>
+            <button class="btn btn-sm" onclick="saveMatch('${m.id}')">Kaydet</button>
+          </div>
+        `;
+      } else {
+        html += `
+          <div class="match-card">
+            <div style="flex:1; text-align:right;">
+              <div style="font-size:0.75rem;color:var(--muted);">${i + 1}. MAÇ</div>
+              <div>${m.player1 || '<span style="color:var(--muted)">Belirlenmedi</span>'}</div>
+            </div>
+            <div class="match-vs">VS</div>
+            <div style="flex:1;">
+              <div style="font-size:0.75rem;color:var(--muted);">&nbsp;</div>
+              <div>${m.player2 || '<span style="color:var(--muted)">Belirlenmedi</span>'}</div>
+            </div>
+          </div>
+        `;
+      }
+    });
+
+    if (canEdit) {
+      html += `<button class="btn btn-sm btn-outline" style="margin-top:8px;" onclick="addMatch()">+ Maç Ekle</button>`;
+    }
+    container.innerHTML = html;
+  }
+
+  function saveMatch(id) {
+    const inputs = document.querySelectorAll(`input[data-mid="${id}"]`);
+    let matches = getMatches();
+    let m = matches.find(x => x.id === id);
+    if (!m) {
+      m = { id, player1: "", player2: "", result: "" };
+      matches.push(m);
+    }
+    m.player1 = inputs[0]?.value.trim() || "";
+    m.player2 = inputs[1]?.value.trim() || "";
+    saveMatches(matches);
+    alert("Maç kaydedildi");
+    renderMatches(true);
+  }
+
+  function addMatch() {
+    const matches = getMatches();
+    matches.push({ id: "m" + Date.now(), player1: "", player2: "", result: "" });
+    saveMatches(matches);
+    renderMatches(true);
+  }
+
+  // ========== YARDIMCI ==========
+  function esc(t) {
+    if (!t) return "";
+    return String(t)
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;");
+  }
+
+  // Sayfa yüklenince
+  updateCount();
+  renderPlayers(false);
+  renderMatches(false);
+</script>
+</body>
+</html>
